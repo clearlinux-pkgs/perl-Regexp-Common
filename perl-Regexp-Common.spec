@@ -4,13 +4,13 @@
 #
 Name     : perl-Regexp-Common
 Version  : 2017060201
-Release  : 1
+Release  : 2
 URL      : https://cpan.metacpan.org/authors/id/A/AB/ABIGAIL/Regexp-Common-2017060201.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/A/AB/ABIGAIL/Regexp-Common-2017060201.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libr/libregexp-common-perl/libregexp-common-perl_2017060201-1.debian.tar.xz
 Summary  : 'Provide commonly requested regular expressions'
 Group    : Development/Tools
-License  : Artistic-1.0 GPL-1.0
+License  : Artistic-1.0 Artistic-2.0 BSD-3-Clause GPL-1.0 GPL-2.0 MIT MPL-2.0
 Requires: perl-Regexp-Common-license
 Requires: perl-Regexp-Common-man
 
@@ -67,6 +67,7 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/perl-Regexp-Common
 cp LICENSE %{buildroot}/usr/share/doc/perl-Regexp-Common/LICENSE
 cp COPYRIGHT %{buildroot}/usr/share/doc/perl-Regexp-Common/COPYRIGHT
+cp deblicense/copyright %{buildroot}/usr/share/doc/perl-Regexp-Common/deblicense_copyright
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot}
 else
@@ -117,6 +118,7 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 %defattr(-,root,root,-)
 /usr/share/doc/perl-Regexp-Common/COPYRIGHT
 /usr/share/doc/perl-Regexp-Common/LICENSE
+/usr/share/doc/perl-Regexp-Common/deblicense_copyright
 
 %files man
 %defattr(-,root,root,-)
