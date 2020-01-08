@@ -4,7 +4,7 @@
 #
 Name     : perl-Regexp-Common
 Version  : 2017060201
-Release  : 11
+Release  : 12
 URL      : https://cpan.metacpan.org/authors/id/A/AB/ABIGAIL/Regexp-Common-2017060201.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/A/AB/ABIGAIL/Regexp-Common-2017060201.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libr/libregexp-common-perl/libregexp-common-perl_2017060201-1.debian.tar.xz
@@ -12,6 +12,7 @@ Summary  : 'Provide commonly requested regular expressions'
 Group    : Development/Tools
 License  : Artistic-1.0 Artistic-2.0 BSD-3-Clause GPL-1.0 GPL-2.0 MIT MPL-2.0
 Requires: perl-Regexp-Common-license = %{version}-%{release}
+Requires: perl-Regexp-Common-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -23,6 +24,7 @@ Release of version 2017060201 of Regexp::Common
 Summary: dev components for the perl-Regexp-Common package.
 Group: Development
 Provides: perl-Regexp-Common-devel = %{version}-%{release}
+Requires: perl-Regexp-Common = %{version}-%{release}
 
 %description dev
 dev components for the perl-Regexp-Common package.
@@ -36,18 +38,28 @@ Group: Default
 license components for the perl-Regexp-Common package.
 
 
+%package perl
+Summary: perl components for the perl-Regexp-Common package.
+Group: Default
+Requires: perl-Regexp-Common = %{version}-%{release}
+
+%description perl
+perl components for the perl-Regexp-Common package.
+
+
 %prep
 %setup -q -n Regexp-Common-2017060201
-cd ..
-%setup -q -T -D -n Regexp-Common-2017060201 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libregexp-common-perl_2017060201-1.debian.tar.xz
+cd %{_builddir}/Regexp-Common-2017060201
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Regexp-Common-2017060201/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/Regexp-Common-2017060201/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -57,7 +69,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -66,9 +78,9 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-Regexp-Common
-cp COPYRIGHT %{buildroot}/usr/share/package-licenses/perl-Regexp-Common/COPYRIGHT
-cp LICENSE %{buildroot}/usr/share/package-licenses/perl-Regexp-Common/LICENSE
-cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Regexp-Common/deblicense_copyright
+cp %{_builddir}/Regexp-Common-2017060201/COPYRIGHT %{buildroot}/usr/share/package-licenses/perl-Regexp-Common/f5201c2780719096e19947873e0dca740c93ab0d
+cp %{_builddir}/Regexp-Common-2017060201/LICENSE %{buildroot}/usr/share/package-licenses/perl-Regexp-Common/f5201c2780719096e19947873e0dca740c93ab0d
+cp %{_builddir}/Regexp-Common-2017060201/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Regexp-Common/7b62a4b0d7ba5096b95eab3c0ed7280d3c6b48e2
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -81,39 +93,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/CC.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/SEN.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/RFC1035.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/RFC1738.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/RFC1808.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/RFC2384.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/RFC2396.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/RFC2806.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/fax.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/file.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/ftp.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/gopher.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/http.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/news.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/pop.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/prospero.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/tel.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/telnet.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/tv.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/URI/wais.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/_support.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/balanced.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/comment.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/delimited.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/lingua.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/list.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/net.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/number.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/profanity.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/whitespace.pm
-/usr/lib/perl5/vendor_perl/5.28.2/Regexp/Common/zip.pm
 
 %files dev
 %defattr(-,root,root,-)
@@ -153,6 +132,41 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-Regexp-Common/COPYRIGHT
-/usr/share/package-licenses/perl-Regexp-Common/LICENSE
-/usr/share/package-licenses/perl-Regexp-Common/deblicense_copyright
+/usr/share/package-licenses/perl-Regexp-Common/7b62a4b0d7ba5096b95eab3c0ed7280d3c6b48e2
+/usr/share/package-licenses/perl-Regexp-Common/f5201c2780719096e19947873e0dca740c93ab0d
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/CC.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/SEN.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/RFC1035.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/RFC1738.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/RFC1808.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/RFC2384.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/RFC2396.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/RFC2806.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/fax.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/file.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/ftp.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/gopher.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/http.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/news.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/pop.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/prospero.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/tel.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/telnet.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/tv.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/URI/wais.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/_support.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/balanced.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/comment.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/delimited.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/lingua.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/list.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/net.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/number.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/profanity.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/whitespace.pm
+/usr/lib/perl5/vendor_perl/5.30.1/Regexp/Common/zip.pm
