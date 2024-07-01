@@ -4,7 +4,7 @@
 #
 Name     : perl-Regexp-Common
 Version  : 2017060201
-Release  : 26
+Release  : 27
 URL      : https://cpan.metacpan.org/authors/id/A/AB/ABIGAIL/Regexp-Common-2017060201.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/A/AB/ABIGAIL/Regexp-Common-2017060201.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libr/libregexp-common-perl/libregexp-common-perl_2017060201-1.debian.tar.xz
