@@ -7,7 +7,7 @@
 #
 Name     : perl-Regexp-Common
 Version  : 2024080801
-Release  : 28
+Release  : 29
 URL      : https://cpan.metacpan.org/authors/id/A/AB/ABIGAIL/Regexp-Common-2024080801.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/A/AB/ABIGAIL/Regexp-Common-2024080801.tar.gz
 Summary  : 'Provide commonly requested regular expressions'
